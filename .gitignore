@@ -1,6 +1,21 @@
+# MSBuild
+*.binlog
+/bin/
+/obj/
+
+# User-specific files (MSBuild)
+*.props.user
+*.targets.user
+
+# User-specific files (VS Code)
+.vscode/*.local.json
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json
+
+# User-specific files (Visual Studio)
 *.suo
-bin/
-obj/
-packages/
-*.userprefs
 .vs/
+
+# User-specific files (MonoDevelop/Xamarin Studio)
+*.userprefs

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <!-- Replicated from `targets\Microsoft.NET.GenerateAssemblyInfo.targets` due to that project file not yet being imported -->
+    <GenerateAssemblyInfo Condition="'$(GenerateAssemblyInfo)' == ''">true</GenerateAssemblyInfo>
+    <GenerateComAssemblyInfo Condition="'$(GenerateComAssemblyInfo)' == ''">true</GenerateComAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GenerateAssemblyInfo)' == 'true' and '$(GenerateComAssemblyInfo)' == 'true'">
+    <GenerateAssemblyComVisibleAttribute Condition="'$(GenerateAssemblyComVisibleAttribute)' == ''">true</GenerateAssemblyComVisibleAttribute>
+    <GenerateAssemblyGuidAttribute Condition="'$(GenerateAssemblyGuidAttribute)' == ''">true</GenerateAssemblyGuidAttribute>
+  </PropertyGroup>
+
+  <Target Name="GetComAssemblyAttributes"
+    AfterTargets="GetAssemblyVersion;AddSourceRevisionToInformationalVersion"
+    BeforeTargets="GetAssemblyAttributes"
+  >
+    <ItemGroup>
+      <AssemblyAttribute Include="System.Runtime.InteropServices.ComVisibleAttribute" Condition="'$(AssemblyComVisible)' != '' and '$(GenerateAssemblyComVisibleAttribute)' == 'true'">
+        <_Parameter1>$(AssemblyComVisible)</_Parameter1>
+      </AssemblyAttribute>
+      <AssemblyAttribute Include="System.Runtime.InteropServices.GuidAttribute" Condition="'$(AssemblyGuid)' != '' and '$(GenerateAssemblyGuidAttribute)' == 'true'">
+        <_Parameter1>$(AssemblyGuid)</_Parameter1>
+      </AssemblyAttribute>
+    </ItemGroup>
+  </Target>
+</Project>

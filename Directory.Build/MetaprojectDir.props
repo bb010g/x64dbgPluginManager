@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<GenerateProjectSpecificOutputFolder>true</GenerateProjectSpecificOutputFolder>
+    <!-- This file expects to be one level below the metaproject directory. -->
+		<MetaprojectDir>$([MSBuild]::EnsureTrailingSlash($([System.IO.Path]::GetDirectoryName($([System.IO.Path]::TrimEndingDirectorySeparator($(MSBuildThisFileDirectory)))))))</MetaprojectDir>
+		<MetaprojectName>$([System.IO.Path]::GetFileName($([System.IO.Path]::GetDirectoryName($(MetaprojectDir)))))</MetaprojectName>
+		<Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
+		<ProjectName Condition="'$(ProjectName)' == ''">$(MSBuildProjectName)</ProjectName>
+		<!-- sort group separator -->
+		<BaseIntermediateOutputPath>$(MetaprojectDir)obj\$(ProjectName)\</BaseIntermediateOutputPath>
+		<BaseOutputPath>$(MetaprojectDir)bin\$(ProjectName)\</BaseOutputPath>
+		<PlatformName Condition="'$(PlatformName)' == ''">$(Platform)</PlatformName>
+		<LibraryDir>$(MetaprojectDir)lib\</LibraryDir>
+		<!-- sort group separator -->
+		<IntermediateOutputPath>$(BaseIntermediateOutputPath)$(PlatformName)\$(Configuration)\</IntermediateOutputPath>
+		<OutputPath>$(BaseOutputPath)$(PlatformName)\$(Configuration)\</OutputPath>
+	</PropertyGroup>
+</Project>

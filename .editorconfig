@@ -1,11 +1,16 @@
 ; Top-most EditorConfig file
 root = true
 
-; Windows-style newlines
 [*]
+charset = utf-8
+; Windows-style newlines
 end_of_line = CRLF
+insert_final_newline = true
 
-; Tab indentation
 [*.cs]
 indent_style = space
 tab_width = 4
+
+[*.{csproj,props,targets}{,.project,.user}]
+indent_style = space
+indent_size = 2
