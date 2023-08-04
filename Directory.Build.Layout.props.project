@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Configuration for project layout. -->
+  <PropertyGroup>
+    <AppendConfigurationToOutputPath>true</AppendConfigurationToOutputPath>
+    <AppendPlatformNameToOutputPath>true</AppendPlatformNameToOutputPath>
+    <AppendProjectNameToOutputPath>true</AppendProjectNameToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>true</AppendRuntimeIdentifierToOutputPath>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+</Project>

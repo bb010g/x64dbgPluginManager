@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- based on <https://stackoverflow.com/questions/43947599/how-to-publish-for-all-target-frameworks> -->
+  <Target Name="PublishProjectIfTargetFrameworkIsNotEmpty"
+    DependsOnTargets="Publish"
+    Condition="'$(TargetFramework)' != ''"
+  />
+  <Target Name="PublishProjectForAllFrameworksIfTargetFrameworkIsEmpty"
+    Condition="'$(TargetFramework)' == ''"
+  >
+    <ItemGroup>
+      <_PublishFramework Include="$(TargetFrameworks)" />
+    </ItemGroup>
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="Publish"
+      Properties="DOTNET_CLI_ENABLE_PUBLISH_RELEASE_FOR_SOLUTIONS='true';TargetFramework=%(_PublishFramework.Identity)"
+    />
+  </Target>
+  <Target Name="PublishAll"
+    DependsOnTargets="PublishProjectIfTargetFrameworkIsNotEmpty;PublishProjectForAllFrameworksIfTargetFrameworkIsEmpty"
+  />
+</Project>

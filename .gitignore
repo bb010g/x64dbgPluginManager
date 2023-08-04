@@ -1,7 +1,11 @@
-# MSBuild
+# Build artifacts (MSBuild)
 *.binlog
-/bin/
 /obj/
+/bin/
+/dist/
+
+# Build artifacts (.NET (Fody))
+FodyWeavers.xsd
 
 # User-specific files (MSBuild)
 *.props.user

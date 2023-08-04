@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!-- This project file only imports other project files. -->
-	<Import Project="$(MSBuildThisFileDirectory)Directory.Build\*.targets" Condition="exists('$(MSBuildThisFileDirectory)Directory.Build')" />
-	<Import Project="$(MSBuildThisFile).project" Condition="exists('$(MSBuildThisFile).project')" />
-	<Import Project="$(MSBuildThisFileDirectory)Directory.Build\*.targets.user" Condition="exists('$(MSBuildThisFileDirectory)Directory.Build')" />
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Build\*.targets" Condition="exists('$(MSBuildThisFileDirectory)Directory.Build')" />
+  <Import Project="$(MSBuildThisFile).project" Condition="exists('$(MSBuildThisFile).project')" />
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Build\*.targets.user" Condition="exists('$(MSBuildThisFileDirectory)Directory.Build')" />
 </Project>

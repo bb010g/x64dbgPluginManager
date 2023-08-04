@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" TreatAsLocalProperty="PublishSingleFile">
   <!-- This project file declares project-specific properties. -->
   <PropertyGroup>
-		<Authors>mrexodia</Authors>
-		<Copyright>Copyright © mrexodia 2017-2023</Copyright>
-		<EmbedAllSources>true</EmbedAllSources>
-		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-		<IncludeSymbols>true</IncludeSymbols>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-	</PropertyGroup>
+    <Authors>mrexodia</Authors>
+    <Copyright>Copyright © mrexodia 2017-2023</Copyright>
+    <EmbedAllSources>true</EmbedAllSources>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(PublishSingleFile)' == 'true' and '$(TargetFramework)' == 'net45'">
+    <PublishSingleFile>false</PublishSingleFile>
+    <EmbedAssembliesAsResources>true</EmbedAssembliesAsResources>
+  </PropertyGroup>
 </Project>

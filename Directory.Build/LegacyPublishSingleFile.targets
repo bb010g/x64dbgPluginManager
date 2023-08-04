@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Condition="'$(EmbedAssembliesAsResources)' == 'true' and '$(TargetFramework)' == 'net45'">
+    <PackageReference Include="Costura.Fody" Version="5.7.0" PrivateAssets="all" Condition="'$(TargetFramework)' == 'net45'" />
+    <PackageReference Include="Fody" Version="6.8.0" PrivateAssets="all" Condition="'$(TargetFramework)' == 'net45'" />
+  </ItemGroup>
+</Project>

@@ -8,19 +8,22 @@
     <AssemblyGuid>54FB252A-18F1-417B-AF4B-8EB6CBB0ED1B</AssemblyGuid>
   </PropertyGroup>
   <PropertyGroup>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFrameworks>net45</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <OutputType>WinExe</OutputType>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <LangVersion>11.0</LangVersion>
     <Nullable>enable</Nullable>
-    <WarningsAsErrors>$(WarningsAsErrors);Nullable</WarningsAsErrors>
     <ImplicitUsings>disable</ImplicitUsings>
     <FileAlignment>512</FileAlignment>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
+  <!-- <PropertyGroup Condition="'$(TargetFramework)' != 'net45'">
     <PublishSingleFile>true</PublishSingleFile>
+  </PropertyGroup> -->
+  <PropertyGroup Condition="$([MSBuild]::GetTargetFrameworkIdentifier('$(TargetFramework)')) == '.NETFramework' and $([MSBuild]::IsOSPlatform('Windows')) and '$(RuntimeIdentifier)' == ''">
+    <RuntimeIdentifier Condition="'$(PlatformTarget)' == 'x64'">win-x64</RuntimeIdentifier>
+    <RuntimeIdentifier Condition="'$(PlatformTarget)' == 'x86' or '$(PlatformTarget)' == ''">win-x86</RuntimeIdentifier>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyComVisible>false</AssemblyComVisible>

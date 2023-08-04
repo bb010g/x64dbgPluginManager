@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Needs to be imported near the top of `Directory.Build.props`. -->
+  <PropertyGroup>
+    <AppendConfigurationToOutputPath Condition="'$(AppendConfigurationToOutputPath)' == ''">true</AppendConfigurationToOutputPath>
+    <AppendPlatformNameToOutputPath Condition="'$(AppendPlatformNameToOutputPath)' == ''">true</AppendPlatformNameToOutputPath>
+    <AppendProjectNameToOutputPath Condition="'$(AppendProjectNameToOutputPath)' == ''">true</AppendProjectNameToOutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateProjectSpecificOutputFolder>true</GenerateProjectSpecificOutputFolder>
+    <!-- This file expects to be one level below the metaproject directory. -->
+    <MetaprojectDir Condition="'$(MetaprojectDir)' == ''">$([System.IO.Path]::GetDirectoryName($([System.IO.Path]::TrimEndingDirectorySeparator($(MSBuildThisFileDirectory)))))</MetaprojectDir>
+    <MetaprojectDir Condition="'$(MetaprojectDir)' != '' and !HasTrailingSlash('$(MetaprojectDir)')">$(MetaprojectDir)\</MetaprojectDir>
+    <MetaprojectName Condition="'$(MetaprojectName)' == ''">$([System.IO.Path]::GetFileName($([System.IO.Path]::GetDirectoryName($(MetaprojectDir)))))</MetaprojectName>
+    <Platform Condition="'$(Platform)' == '' and '$(DefaultProjectPlatform)' != ''">$(DefaultProjectPlatform)</Platform>
+    <PlatformName Condition="'$(PlatformName)' == '' and '$(DefaultPlatformName)' != ''">$(DefaultPlatformName)</PlatformName>
+    <PlatformName Condition="'$(PlatformName)' == ''">$(Platform)</PlatformName>
+    <ProjectName Condition="'$(ProjectName)' == '' and '$(DefaultProjectName)' != ''">$(DefaultProjectName)</ProjectName>
+    <ProjectName Condition="'$(ProjectName)' == ''">$(MSBuildProjectName)</ProjectName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LibraryDirName Condition="'$(LibraryDirName)' == ''">lib</LibraryDirName>
+    <IntermediateOutputDirName Condition="'$(IntermediateOutputDirName)' == ''">obj</IntermediateOutputDirName>
+    <OutputDirName Condition="'$(OutputDirName)' == ''">bin</OutputDirName>
+    <PackageDirName Condition="'$(PackageDirName)' == ''">dist\packages</PackageDirName>
+    <PublishDirName Condition="'$(PublishDirName)' == ''">dist\publish</PublishDirName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(BaseIntermediateOutputPath)' == ''">
+    <BaseIntermediateOutputPath Condition="'$(MetaprojectDir)' != ''">$(MetaprojectDir)$(IntermediateOutputDirName)\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath Condition="'$(AppendProjectNameToOutputPath)' == 'true' and '$(ProjectName)' != ''">$(BaseIntermediateOutputPath)$(ProjectName)\</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)' != '' and !HasTrailingSlash('$(BaseIntermediateOutputPath)')">$(BaseIntermediateOutputPath)\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(BaseOutputPath)' == ''">
+    <BaseOutputPath Condition="'$(MetaprojectDir)' != ''">$(MetaprojectDir)$(OutputDirName)\</BaseOutputPath>
+    <BaseOutputPath Condition="'$(AppendProjectNameToOutputPath)' == 'true' and '$(ProjectName)' != ''">$(BaseOutputPath)$(ProjectName)\</BaseOutputPath>
+    <BaseOutputPath Condition="'$(BaseOutputPath)' != '' and !HasTrailingSlash('$(BaseOutputPath)')">$(BaseOutputPath)\</BaseOutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <BaseLibraryDir Condition="'$(BaseLibraryDir)' == ''">$(MetaprojectDir)$(LibraryDirName)\</BaseLibraryDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(IntermediateOutputPath)' == ''">
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
+    <IntermediateOutputPath Condition="'$(AppendPlatformNameToOutputPath)' == 'true' and '$(PlatformName)' != ''">$(IntermediateOutputPath)$(PlatformName)\</IntermediateOutputPath>
+    <IntermediateOutputPath Condition="'$(AppendConfigurationToOutputPath)' == 'true' and '$(Configuration)' != ''">$(IntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+    <IntermediateOutputPath Condition="'$(IntermediateOutputPath)' != '' and !HasTrailingSlash('$(IntermediateOutputPath)')">$(IntermediateOutputPath)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(OutputPath)' == ''">
+    <OutputPath>$(BaseOutputPath)</OutputPath>
+    <OutputPath Condition="'$(AppendPlatformNameToOutputPath)' == 'true' and '$(PlatformName)' != ''">$(OutputPath)$(PlatformName)\</OutputPath>
+    <OutputPath Condition="'$(AppendConfigurationToOutputPath)' == 'true' and '$(Configuration)' != ''">$(OutputPath)$(Configuration)\</OutputPath>
+    <OutputPath Condition="'$(OutputPath)' != '' and !HasTrailingSlash('$(OutputPath)')">$(OutputPath)\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(NuspecOutputPath)' == ''">
+    <NuspecOutputPath>$(BaseIntermediateOutputPath)</NuspecOutputPath>
+    <NuspecOutputPath Condition="'$(AppendPlatformNameToOutputPath)' == 'true' and '$(PlatformName)' != ''">$(NuspecOutputPath)$(PlatformName)\</NuspecOutputPath>
+    <NuspecOutputPath Condition="'$(AppendConfigurationToOutputPath)' == 'true' and '$(Configuration)' != ''">$(NuspecOutputPath)$(Configuration)\</NuspecOutputPath>
+    <NuspecOutputPath Condition="'$(NuspecOutputPath)' != '' and !HasTrailingSlash('$(NuspecOutputPath)')">$(NuspecOutputPath)\</NuspecOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(BasePackageOutputPath)' == ''">
+    <BasePackageOutputPath Condition="'$(MetaprojectDir)' != ''">$(MetaprojectDir)$(PackageDirName)\</BasePackageOutputPath>
+    <BasePackageOutputPath Condition="'$(AppendProjectNameToOutputPath)' == 'true' and '$(ProjectName)' != ''">$(BasePackageOutputPath)$(ProjectName)\</BasePackageOutputPath>
+    <BasePackageOutputPath Condition="'$(BasePackageOutputPath)' != '' and !HasTrailingSlash('$(BasePackageOutputPath)')">$(BasePackageOutputPath)\</BasePackageOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(PackageOutputPath)' == ''">
+    <PackageOutputPath>$(BasePackageOutputPath)</PackageOutputPath>
+    <PackageOutputPath Condition="'$(AppendPlatformNameToOutputPath)' == 'true' and '$(PlatformName)' != ''">$(PackageOutputPath)$(PlatformName)\</PackageOutputPath>
+    <PackageOutputPath Condition="'$(AppendConfigurationToOutputPath)' == 'true' and '$(Configuration)' != ''">$(PackageOutputPath)$(Configuration)\</PackageOutputPath>
+    <PackageOutputPath Condition="'$(AppendRuntimeIdentifierToOutputPath)' == 'true' and '$(RuntimeIdentifier)' != '' and '$(_UsingDefaultRuntimeIdentifier)' != 'true'">$(PackageOutputPath)$(RuntimeIdentifier)\</PackageOutputPath>
+    <PackageOutputPath Condition="'$(PackageOutputPath)' != '' and !HasTrailingSlash('$(PackageOutputPath)')">$(PackageOutputPath)\</PackageOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(BasePublishDir)' == ''">
+    <BasePublishDir Condition="'$(MetaprojectDir)' != ''">$(MetaprojectDir)$(PublishDirName)\</BasePublishDir>
+    <BasePublishDir Condition="'$(AppendProjectNameToOutputPath)' == 'true' and '$(ProjectName)' != ''">$(BasePublishDir)$(ProjectName)\</BasePublishDir>
+    <BasePublishDir Condition="'$(BasePublishDir)' != '' and !HasTrailingSlash('$(BasePublishDir)')">$(BasePublishDir)\</BasePublishDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(PublishDir)' == ''">
+    <PublishDir>$(BasePublishDir)</PublishDir>
+    <PublishDir Condition="'$(AppendPlatformNameToOutputPath)' == 'true' and '$(PlatformName)' != ''">$(PublishDir)$(PlatformName)\</PublishDir>
+    <PublishDir Condition="'$(AppendConfigurationToOutputPath)' == 'true' and '$(Configuration)' != ''">$(PublishDir)$(Configuration)\</PublishDir>
+    <PublishDir Condition="'$(AppendTargetFrameworkToOutputPath)' == 'true' and '$(TargetFramework)' != ''">$(PublishDir)$(TargetFramework)\</PublishDir>
+    <PublishDir Condition="'$(PublishDir)' != '' and !HasTrailingSlash('$(PublishDir)')">$(PublishDir)\</PublishDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(PublishDir)' != '' and '$(AppendRuntimeIdentifierToOutputPath)' == 'true' and '$(AppendedRuntimeIdentifierToPublishDir)' != 'true' and '$(RuntimeIdentifier)' != '' and '$(_UsingDefaultRuntimeIdentifier)' != 'true'">
+    <PublishDir>$(PublishDir)$(RuntimeIdentifier)\</PublishDir>
+    <AppendedRuntimeIdentifierToPublishDir>true</AppendedRuntimeIdentifierToPublishDir>
+  </PropertyGroup>
+</Project>

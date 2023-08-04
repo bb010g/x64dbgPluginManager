@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Needs to be imported near the top of `Directory.Build.targets`. -->
+  <PropertyGroup Condition="'$(PublishDir)' != '' and '$(AppendRuntimeIdentifierToOutputPath)' == 'true' and '$(AppendedRuntimeIdentifierToPublishDir)' != 'true' and '$(RuntimeIdentifier)' != '' and '$(_UsingDefaultRuntimeIdentifier)' != 'true'">
+    <PublishDir>$(PublishDir)$(RuntimeIdentifier)\</PublishDir>
+    <AppendedRuntimeIdentifierToPublishDir>true</AppendedRuntimeIdentifierToPublishDir>
+  </PropertyGroup>
+  <Target Name="AppendRuntimeIdentifierToPublishDir"
+    BeforeTargets="ApplyImplicitVersions"
+    Condition="'$(AppendRuntimeIdentifierToOutputPath)' == 'true' and '$(AppendedRuntimeIdentifierToPublishDir)' != 'true' and '$(PublishDir)' != '' and '$(RuntimeIdentifier)' != '' and '$(_UsingDefaultRuntimeIdentifier)' != 'true'"
+  >
+    <PropertyGroup>
+      <PublishDir>$(PublishDir)$(RuntimeIdentifier)\</PublishDir>
+      <AppendedRuntimeIdentifierToPublishDir>true</AppendedRuntimeIdentifierToPublishDir>
+    </PropertyGroup>
+  </Target>
+</Project>
